@@ -18,7 +18,11 @@ import {
 } from '@tsoa/runtime';
 import express from 'express';
 import { GdriveService } from '../services/GdriveService/GdriveService';
-import { allowApiKeyAuthentication, isAuthenticated } from './authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/gdrive')
@@ -30,7 +34,11 @@ export class GoogleDriveController extends BaseController {
      * @summary Get Google Drive access token
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/get-access-token')
     @OperationId('getAccessToken')
@@ -51,7 +59,11 @@ export class GoogleDriveController extends BaseController {
      * @summary Upload to Google Sheet
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/upload-gsheet')
     @OperationId('uploadGsheet')

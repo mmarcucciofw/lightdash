@@ -19,7 +19,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { allowApiKeyAuthentication, isAuthenticated } from './authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/projects/{projectUuid}/funnel')
@@ -36,7 +40,11 @@ export class FunnelController extends BaseController {
      * @param timestampFieldId The timestamp dimension used to filter to last 30 days
      * @param req Express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/event-names')
     @OperationId('GetFunnelEventNames')
@@ -69,7 +77,11 @@ export class FunnelController extends BaseController {
      * @param body The funnel query configuration
      * @param req Express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/query')
     @OperationId('RunFunnelQuery')

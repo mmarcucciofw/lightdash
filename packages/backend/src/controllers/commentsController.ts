@@ -23,6 +23,7 @@ import {
 import express from 'express';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -42,6 +43,7 @@ export class CommentsController extends BaseController {
      * @returns the id of the created comment
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -79,7 +81,11 @@ export class CommentsController extends BaseController {
      * @param dashboardUuid the uuid of the dashboard
      * @returns all comments for a dashboard
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/dashboards/{dashboardUuidOrSlug}')
     @OperationId('getComments')
@@ -105,6 +111,7 @@ export class CommentsController extends BaseController {
      * @param commentId the uuid of the comment
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -134,6 +141,7 @@ export class CommentsController extends BaseController {
      * @param commentId the uuid of the comment
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

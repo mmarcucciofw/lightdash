@@ -24,6 +24,7 @@ import {
 import express from 'express';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -38,7 +39,11 @@ export class UserAttributesController extends BaseController {
      * @summary List user attributes
      * @param req
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/')
     @OperationId('getUserAttributes')
     async getUserAttributes(
@@ -63,6 +68,7 @@ export class UserAttributesController extends BaseController {
      * @param req
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -91,6 +97,7 @@ export class UserAttributesController extends BaseController {
      * @param req
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -119,6 +126,7 @@ export class UserAttributesController extends BaseController {
      * @param req
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

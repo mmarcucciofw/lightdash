@@ -26,7 +26,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { allowApiKeyAuthentication, isAuthenticated } from './authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/projects/{projectUuid}/validate')
@@ -43,7 +47,11 @@ export class ValidationController extends BaseController {
      * @param req express request
      * @param body the compiled explores to validate against an existing project, this is used in the CLI to validate a project without creating a preview
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/')
     @OperationId('ValidateProject')
@@ -88,7 +96,11 @@ export class ValidationController extends BaseController {
      * @param fromSettings boolean to know if this request is made from the settings page, for analytics
      * @param jobId optional jobId to get results for a specific job, used on CLI
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/')
     @OperationId('GetLatestValidationResults')
@@ -114,7 +126,11 @@ export class ValidationController extends BaseController {
      * @param req express request
      * @param fromSettings boolean to know if this request is made from the settings page, for analytics
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Delete('/{validationId}')
     @OperationId('DeleteValidationDismiss')
@@ -139,7 +155,11 @@ export class ValidationController extends BaseController {
      * @param chartUuid the chart UUID to validate
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/chart/{chartUuid}')
     @OperationId('ValidateChart')
@@ -167,7 +187,11 @@ export class ValidationController extends BaseController {
      * @param dashboardUuid the dashboard UUID to validate
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/dashboard/{dashboardUuid}')
     @OperationId('ValidateDashboard')

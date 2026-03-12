@@ -16,7 +16,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { allowApiKeyAuthentication, isAuthenticated } from './authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/bigquery/sso')
@@ -27,7 +31,11 @@ export class BigquerySSOController extends BaseController {
      * Get BigQuery datasets for a project
      * @summary Get BigQuery datasets
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/datasets')
     @OperationId('GetBigQueryDatasets')
@@ -50,7 +58,11 @@ export class BigquerySSOController extends BaseController {
      * Get BigQuery projects accessible by the user
      * @summary Get BigQuery projects
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/projects')
     @OperationId('GetBigQueryProjects')
@@ -72,7 +84,11 @@ export class BigquerySSOController extends BaseController {
      * Check if user is authenticated with BigQuery
      * @summary Check BigQuery authentication
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/is-authenticated')
     @OperationId('checkBigqueryAuthentication')

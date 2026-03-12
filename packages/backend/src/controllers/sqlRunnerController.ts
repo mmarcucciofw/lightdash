@@ -42,6 +42,7 @@ import express from 'express';
 import { getContextFromQueryOrHeader } from '../analytics/LightdashAnalytics';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -55,7 +56,11 @@ export class SqlRunnerController extends BaseController {
      * Get warehouse tables for a project
      * @summary List warehouse tables
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/tables')
     @OperationId('getTables')
@@ -77,6 +82,7 @@ export class SqlRunnerController extends BaseController {
      * @summary Get table fields
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -113,6 +119,7 @@ export class SqlRunnerController extends BaseController {
      * @summary Run SQL query
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -145,6 +152,7 @@ export class SqlRunnerController extends BaseController {
      * @summary Run SQL pivot query
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -179,7 +187,11 @@ export class SqlRunnerController extends BaseController {
      * @param projectUuid the uuid for the project
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('results/{fileId}')
     @OperationId('getLocalResults')
@@ -214,7 +226,11 @@ export class SqlRunnerController extends BaseController {
      * @param uuid the uuid for the saved sql chart
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('saved/{uuid}')
     @OperationId('getSavedSqlChart')
@@ -239,7 +255,11 @@ export class SqlRunnerController extends BaseController {
      * @param slug the slug for the saved sql chart
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('saved/slug/{slug}')
     @OperationId('getSavedSqlChartBySlug')
@@ -264,7 +284,11 @@ export class SqlRunnerController extends BaseController {
      * @param slug - the slug of the saved chart
      * @param req - express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('saved/slug/{slug}/results-job')
     @OperationId('getSavedSqlResultsJob')
@@ -295,7 +319,11 @@ export class SqlRunnerController extends BaseController {
      * @param uuid - the uuid of the saved chart
      * @param req - express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('saved/{uuid}/results-job')
     @OperationId('getSavedSqlResultsJobByUuid')
@@ -327,6 +355,7 @@ export class SqlRunnerController extends BaseController {
      * @param body the sql chart to create
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -357,6 +386,7 @@ export class SqlRunnerController extends BaseController {
      * @param body the sql chart details to update
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -387,6 +417,7 @@ export class SqlRunnerController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -415,6 +446,7 @@ export class SqlRunnerController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -451,7 +483,11 @@ export class SqlRunnerController extends BaseController {
      * @param projectUuid the uuid for the project
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('saved/{uuid}/promoteDiff')
     @OperationId('promoteSqlChartDiff')
@@ -476,6 +512,7 @@ export class SqlRunnerController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -503,6 +540,7 @@ export class SqlRunnerController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -536,7 +574,11 @@ export class SqlRunnerController extends BaseController {
      * Update a virtual view
      * @summary Update virtual view
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Put('virtual-view/{name}')
     @OperationId('updateVirtualView')
@@ -565,6 +607,7 @@ export class SqlRunnerController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -592,6 +635,7 @@ export class SqlRunnerController extends BaseController {
      * @summary Preview write back
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -620,6 +664,7 @@ export class SqlRunnerController extends BaseController {
      * @summary Create write back PR
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

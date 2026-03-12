@@ -19,7 +19,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { allowApiKeyAuthentication, isAuthenticated } from './authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/projects/{projectUuid}/metricsExplorer')
@@ -30,7 +34,11 @@ export class MetricsExplorerController extends BaseController {
      * Run a metric total query with comparison
      * @summary Run metric total query
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/{explore}/{metric}/runMetricTotal')
     @OperationId('runMetricTotal')
@@ -76,7 +84,11 @@ export class MetricsExplorerController extends BaseController {
      * Compile the metric total query SQL
      * @summary Compile metric total query
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/{explore}/{metric}/compileMetricTotalQuery')
     @OperationId('compileMetricTotalQuery')

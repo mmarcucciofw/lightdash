@@ -75,6 +75,7 @@ import express from 'express';
 import type { DbTagUpdate } from '../database/entities/tags';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -88,7 +89,11 @@ export class ProjectController extends BaseController {
      * Get a project of an organiztion
      * @summary Get project
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}')
     @OperationId('GetProject')
@@ -111,7 +116,11 @@ export class ProjectController extends BaseController {
      * @param projectUuid The uuid of the project to get charts for
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/charts')
     @OperationId('ListChartsInProject')
@@ -135,7 +144,11 @@ export class ProjectController extends BaseController {
      * @param req express request
      * @param excludeChartsSavedInDashboard Whether to exclude charts that are saved in dashboards
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/chart-summaries')
     @Deprecated()
@@ -164,7 +177,11 @@ export class ProjectController extends BaseController {
      * @param projectUuid The uuid of the project to get spaces for
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/spaces')
     @OperationId('ListSpacesInProject')
@@ -189,7 +206,11 @@ export class ProjectController extends BaseController {
      * There may be other users that have access to the project via their organization membership.
      * @summary List project access
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/access')
     @OperationId('GetProjectAccessList')
@@ -217,7 +238,11 @@ export class ProjectController extends BaseController {
      * We don't use the API on the frontend. Instead, we can call the API
      * so that we make sure of the user's access to the project.
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/user/{userUuid}')
     @OperationId('GetProjectMemberAccess')
@@ -242,6 +267,7 @@ export class ProjectController extends BaseController {
      * @summary Grant project access to user
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -271,6 +297,7 @@ export class ProjectController extends BaseController {
      * @deprecated use ProjectRolesController.UpdateProjectUserRoleAssignment instead
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -301,6 +328,7 @@ export class ProjectController extends BaseController {
      * @deprecated use ProjectRolesController.DeleteProjectUserRoleAssignment instead
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -328,7 +356,11 @@ export class ProjectController extends BaseController {
      * List group access for projects
      * @summary List project group accesses
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/groupAccesses')
     @OperationId('GetProjectGroupAccesses')
@@ -355,6 +387,7 @@ export class ProjectController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -385,7 +418,11 @@ export class ProjectController extends BaseController {
      * @param body The metric query to calculate totals for
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('{projectUuid}/calculate-total')
     @OperationId('CalculateTotalFromQuery')
@@ -408,7 +445,11 @@ export class ProjectController extends BaseController {
      * Calculate subtotals from a metricQuery
      * @summary Calculate subtotals from query
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('{projectUuid}/calculate-subtotals')
     @OperationId('CalculateSubtotalsFromQuery')
@@ -431,7 +472,11 @@ export class ProjectController extends BaseController {
      * Get dbt exposures for a project
      * @summary Get dbt exposures
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/dbt-exposures')
     @OperationId('GetDbtExposures')
@@ -454,7 +499,11 @@ export class ProjectController extends BaseController {
      * Get the user's warehouse credentials preference for a project
      * @summary Get user warehouse credentials preference
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/user-credentials')
     @OperationId('getUserWarehouseCredentialsPreference')
@@ -478,7 +527,11 @@ export class ProjectController extends BaseController {
      * Get user warehouse credentials available for a project
      * @summary List project user warehouse credentials
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/user-warehouse-credentials')
     @OperationId('getProjectUserWarehouseCredentials')
@@ -502,7 +555,11 @@ export class ProjectController extends BaseController {
      * Update the user's warehouse credentials preference for a project
      * @summary Update user warehouse credentials preference
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Patch('{projectUuid}/user-credentials/{userWarehouseCredentialsUuid}')
     @OperationId('updateUserWarehouseCredentialsPreference')
@@ -529,7 +586,11 @@ export class ProjectController extends BaseController {
      * Get all custom metrics in a project
      * @summary List custom metrics
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/custom-metrics')
     @OperationId('getCustomMetrics')
@@ -562,6 +623,7 @@ export class ProjectController extends BaseController {
      * @summary Update project metadata
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -590,6 +652,7 @@ export class ProjectController extends BaseController {
      * @summary Update default user spaces setting
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -616,7 +679,11 @@ export class ProjectController extends BaseController {
      * Get all dashboards in a project
      * @summary List dashboards
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/dashboards')
     @OperationId('getDashboards')
@@ -648,6 +715,7 @@ export class ProjectController extends BaseController {
      * @summary Create dashboard
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -704,6 +772,7 @@ export class ProjectController extends BaseController {
      * @summary Create dashboard with charts
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -736,6 +805,7 @@ export class ProjectController extends BaseController {
      * @summary Update dashboards
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -765,6 +835,7 @@ export class ProjectController extends BaseController {
      * @summary Create project preview
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -804,6 +875,7 @@ export class ProjectController extends BaseController {
      * @summary Update scheduler settings
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -862,6 +934,7 @@ export class ProjectController extends BaseController {
      * @summary Create tag
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -894,6 +967,7 @@ export class ProjectController extends BaseController {
      * @summary Delete tag
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -920,6 +994,7 @@ export class ProjectController extends BaseController {
      * @summary Update tag
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -948,7 +1023,11 @@ export class ProjectController extends BaseController {
      * Replace all YAML-defined tags in a project
      * @summary Replace YAML tags
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Put('{projectUuid}/tags/yaml')
     @OperationId('replaceYamlTags')
@@ -975,6 +1054,7 @@ export class ProjectController extends BaseController {
      * @summary List tags
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -1002,7 +1082,11 @@ export class ProjectController extends BaseController {
      * Get charts in code representation
      * @summary List charts as code
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/charts/code')
     @OperationId('getChartsAsCode')
@@ -1026,7 +1110,11 @@ export class ProjectController extends BaseController {
      * Get dashboards in code representation
      * @summary List dashboards as code
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/dashboards/code')
     @OperationId('getDashboardsAsCode')
@@ -1056,7 +1144,11 @@ export class ProjectController extends BaseController {
      * Upsert a chart from code representation
      * @summary Upsert chart as code
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('{projectUuid}/charts/{slug}/code')
     @OperationId('upsertChartAsCode')
@@ -1095,7 +1187,11 @@ export class ProjectController extends BaseController {
      * Gets SQL charts in code representation
      * @summary Get SQL charts as code
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{projectUuid}/sqlCharts/code')
     @OperationId('getSqlChartsAsCode')
@@ -1118,7 +1214,11 @@ export class ProjectController extends BaseController {
      * Upserts an SQL chart from code representation
      * @summary Upsert SQL chart as code
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('{projectUuid}/sqlCharts/{slug}/code')
     @OperationId('upsertSqlChartAsCode')
@@ -1157,7 +1257,11 @@ export class ProjectController extends BaseController {
      * Upsert a dashboard from code representation
      * @summary Upsert dashboard as code
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('{projectUuid}/dashboards/{slug}/code')
     @OperationId('upsertDashboardAsCode')
@@ -1227,6 +1331,7 @@ export class ProjectController extends BaseController {
      * @summary Refresh project
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -1256,6 +1361,7 @@ export class ProjectController extends BaseController {
      * @summary Refresh project pre-aggregates
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -1281,6 +1387,7 @@ export class ProjectController extends BaseController {
      * @summary Refresh pre-aggregate by definition name
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

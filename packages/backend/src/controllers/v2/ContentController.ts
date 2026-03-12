@@ -29,7 +29,11 @@ import {
 } from '@tsoa/runtime';
 import express from 'express';
 import { ContentArgs } from '../../models/ContentModel/ContentModelTypes';
-import { allowApiKeyAuthentication, isAuthenticated } from '../authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from '../authentication';
 import { BaseController } from '../baseController';
 
 @Route('/api/v2/content')
@@ -40,7 +44,11 @@ export class ContentController extends BaseController {
      * Get content (charts, dashboards, spaces)
      * @summary List content
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/')
     @OperationId('List content')
@@ -83,7 +91,11 @@ export class ContentController extends BaseController {
      * Move a single item (Chart, Dashboard, Space) to another space
      * @summary Move content
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/:projectUuid/move')
     @OperationId('Move content')
@@ -115,7 +127,11 @@ export class ContentController extends BaseController {
      * Move multiple items (Charts, Dashboards, Spaces) to another space
      * @summary Bulk move content
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/bulk-action/:projectUuid/move')
     @OperationId('Bulk move content')
@@ -147,7 +163,11 @@ export class ContentController extends BaseController {
      * Get deleted content (soft-deleted charts, dashboards, etc.)
      * @summary List deleted content
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/deleted')
     @OperationId('List deleted content')
@@ -183,7 +203,11 @@ export class ContentController extends BaseController {
      * Restore a soft-deleted item (chart, dashboard, etc.)
      * @summary Restore content
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Post('/:projectUuid/restore')
     @OperationId('Restore content')
@@ -203,7 +227,11 @@ export class ContentController extends BaseController {
      * Permanently delete a soft-deleted item (chart, dashboard, etc.)
      * @summary Permanently delete content
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Delete('/:projectUuid/permanent')
     @OperationId('Permanently delete content')

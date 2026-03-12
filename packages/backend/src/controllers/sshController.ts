@@ -10,7 +10,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { isAuthenticated, unauthorisedInDemo } from './authentication';
+import {
+    allowOauthAuthentication,
+    isAuthenticated,
+    unauthorisedInDemo,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/ssh')
@@ -21,7 +25,11 @@ export class SshController extends BaseController {
      * Create a new SSH key pair
      * @summary Create SSH key pair
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @SuccessResponse('201', 'Success')
     @Post('key-pairs')
     @OperationId('createSshKeyPair')

@@ -24,6 +24,7 @@ import {
 import express from 'express';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -40,6 +41,7 @@ export class DashboardController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -66,7 +68,11 @@ export class DashboardController extends BaseController {
      * @param dashboardUuid dashboardUuid for the dashboard to check diff
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/promoteDiff')
     @OperationId('promoteDashboardDiff')
@@ -89,7 +95,11 @@ export class DashboardController extends BaseController {
      * @param dashboardUuid dashboardUuid for the dashboard
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/history')
     @OperationId('getDashboardHistory')
@@ -114,6 +124,7 @@ export class DashboardController extends BaseController {
      * @param req express request
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -140,7 +151,11 @@ export class DashboardController extends BaseController {
      * Get schedulers for a dashboard
      * @summary List dashboard schedulers
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/schedulers')
     @OperationId('getDashboardSchedulers')
@@ -170,6 +185,7 @@ export class DashboardController extends BaseController {
      * @summary Create dashboard scheduler
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

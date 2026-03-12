@@ -16,7 +16,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { allowApiKeyAuthentication, isAuthenticated } from '../authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from '../authentication';
 import { BaseController } from '../baseController';
 
 @Route('/api/v2/projects/{projectUuid}/pre-aggregates')
@@ -27,7 +31,11 @@ export class PreAggregateController extends BaseController {
      * Retrieves aggregated pre-aggregate hit/miss statistics for a project
      * @summary Get pre-aggregate stats
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/stats')
     @OperationId('getPreAggregateStats')
@@ -67,7 +75,11 @@ export class PreAggregateController extends BaseController {
      * Retrieves pre-aggregate definitions with their latest materialization status
      * @summary Get pre-aggregate materializations
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('/materializations')
     @OperationId('getPreAggregateMaterializations')

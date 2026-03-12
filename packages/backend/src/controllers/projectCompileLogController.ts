@@ -17,7 +17,11 @@ import {
     Tags,
 } from '@tsoa/runtime';
 import express from 'express';
-import { allowApiKeyAuthentication, isAuthenticated } from './authentication';
+import {
+    allowApiKeyAuthentication,
+    allowOauthAuthentication,
+    isAuthenticated,
+} from './authentication';
 import { BaseController } from './baseController';
 
 @Route('/api/v1/projects/{projectUuid}/compile-logs')
@@ -35,7 +39,11 @@ export class ProjectCompileLogController extends BaseController {
      * @param triggeredByUserUuids filter by triggered user UUIDs (comma-separated)
      * @param source filter by source ("cli_deploy", "refresh_dbt")
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get()
     @OperationId('getProjectCompileLogs')
@@ -89,7 +97,11 @@ export class ProjectCompileLogController extends BaseController {
      * @param projectUuid The uuid of the project
      * @param jobUuid The uuid of the job
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('job/{jobUuid}')
     @OperationId('getProjectCompileLogByJob')

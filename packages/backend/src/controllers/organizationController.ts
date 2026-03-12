@@ -51,6 +51,7 @@ import {
 import express from 'express';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -65,7 +66,11 @@ export class OrganizationController extends BaseController {
      * @summary Get current organization
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get()
     @OperationId('GetMyOrganization')
     async getOrganization(
@@ -87,7 +92,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param body the new organization settings
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Put()
     @OperationId('CreateOrganization')
     async createOrganization(
@@ -121,7 +130,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param body the new organization settings
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Patch()
     @OperationId('UpdateMyOrganization')
     async updateOrganization(
@@ -142,7 +155,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param organizationUuid the uuid of the organization to delete
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Delete('{organizationUuid}')
     @OperationId('DeleteMyOrganization')
     async deleteOrganization(
@@ -172,7 +189,11 @@ export class OrganizationController extends BaseController {
      * @summary List organization projects
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/projects')
     @OperationId('ListOrganizationProjects')
     async getProjects(
@@ -193,7 +214,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param projectUuid filter users who can view this project
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/users')
     @OperationId('ListOrganizationMembers')
     async getOrganizationMembers(
@@ -236,7 +261,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param userUuid the uuid of the user
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/users/{userUuid}')
     @OperationId('GetOrganizationMemberByUuid')
     async getOrganizationMemberByUuid(
@@ -258,7 +287,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param email the email of the user
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/users/email/{email}')
     @OperationId('GetOrganizationMemberByEmail')
     async getOrganizationMemberByEmail(
@@ -284,6 +317,7 @@ export class OrganizationController extends BaseController {
      * @deprecated Use the /api/v2/org/assignments/user/{userId} endpoint instead
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -312,6 +346,7 @@ export class OrganizationController extends BaseController {
      * @param userUuid the uuid of the user to delete
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -336,7 +371,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param userUuid the uuid of the user
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/user/{userUuid}/schedulers-summary')
     @OperationId('GetUserSchedulersSummary')
     async getUserSchedulersSummary(
@@ -364,6 +403,7 @@ export class OrganizationController extends BaseController {
      * @param body the new owner details
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -397,7 +437,7 @@ export class OrganizationController extends BaseController {
      * @summary List allowed email domains
      * @param req express request
      */
-    @Middlewares([isAuthenticated])
+    @Middlewares([allowOauthAuthentication, isAuthenticated])
     @Get('/allowedEmailDomains')
     @OperationId('ListOrganizationEmailDomains')
     async getOrganizationAllowedEmailDomains(
@@ -418,7 +458,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param body the new allowed email domains
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Patch('/allowedEmailDomains')
     @OperationId('UpdateOrganizationEmailDomains')
     async updateOrganizationAllowedEmailDomains(
@@ -441,6 +485,7 @@ export class OrganizationController extends BaseController {
      * @param body the new group details
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -467,7 +512,11 @@ export class OrganizationController extends BaseController {
      * @param req
      * @param includeMembers number of members to include
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/groups')
     @OperationId('ListGroupsInOrganization')
     async listGroupsInOrganization(
@@ -507,7 +556,11 @@ export class OrganizationController extends BaseController {
      * Create a new color palette
      * @summary Create color palette
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Post('/color-palettes')
     @OperationId('CreateColorPalette')
     async createColorPalette(
@@ -527,7 +580,11 @@ export class OrganizationController extends BaseController {
      * List all color palettes in the organization
      * @summary List color palettes
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @Get('/color-palettes')
     @OperationId('ListColorPalettes')
     async getColorPalettes(
@@ -546,7 +603,11 @@ export class OrganizationController extends BaseController {
      * Update a color palette
      * @summary Update color palette
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Patch('/color-palettes/{colorPaletteUuid}')
     @OperationId('UpdateColorPalette')
     async updateColorPalette(
@@ -567,7 +628,11 @@ export class OrganizationController extends BaseController {
      * Delete a color palette
      * @summary Delete color palette
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Delete('/color-palettes/{colorPaletteUuid}')
     @OperationId('DeleteColorPalette')
     async deleteColorPalette(
@@ -588,7 +653,11 @@ export class OrganizationController extends BaseController {
      * Set a color palette as the active palette
      * @summary Set active color palette
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Post('/color-palettes/{colorPaletteUuid}/active')
     @OperationId('SetActiveColorPalette')
     async setActiveColorPalette(
@@ -609,6 +678,7 @@ export class OrganizationController extends BaseController {
      * @summary Create project
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -638,7 +708,7 @@ export class OrganizationController extends BaseController {
      * @summary Get impersonation settings
      * @param req express request
      */
-    @Middlewares([isAuthenticated])
+    @Middlewares([allowOauthAuthentication, isAuthenticated])
     @Get('/impersonation')
     @OperationId('GetImpersonationSettings')
     async getImpersonationSettings(
@@ -664,7 +734,11 @@ export class OrganizationController extends BaseController {
      * @param req express request
      * @param body the new impersonation settings
      */
-    @Middlewares([isAuthenticated, unauthorisedInDemo])
+    @Middlewares([
+        allowOauthAuthentication,
+        isAuthenticated,
+        unauthorisedInDemo,
+    ])
     @Patch('/impersonation')
     @OperationId('UpdateImpersonationSettings')
     async updateImpersonationSettings(

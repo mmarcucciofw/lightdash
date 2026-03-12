@@ -19,6 +19,7 @@ import {
 import express from 'express';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from './authentication';
@@ -35,7 +36,11 @@ export class PinningController extends BaseController {
      * @param pinnedListUuid the list uuid for the pinned items
      * @param req express request
      */
-    @Middlewares([allowApiKeyAuthentication, isAuthenticated])
+    @Middlewares([
+        allowOauthAuthentication,
+        allowApiKeyAuthentication,
+        isAuthenticated,
+    ])
     @SuccessResponse('200', 'Success')
     @Get('{pinnedListUuid}/items')
     @OperationId('getPinnedItems')
@@ -63,6 +68,7 @@ export class PinningController extends BaseController {
      * @param body the new order of the pinned items
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

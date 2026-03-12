@@ -21,6 +21,7 @@ import {
 import express from 'express';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     isAuthenticated,
     unauthorisedInDemo,
 } from '../authentication';
@@ -35,6 +36,7 @@ export class DeployController extends BaseController {
      * @summary Start deploy session
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -61,6 +63,7 @@ export class DeployController extends BaseController {
      * @summary Add deploy batch
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,
@@ -95,6 +98,7 @@ export class DeployController extends BaseController {
      * @summary Finalize deploy
      */
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         unauthorisedInDemo,

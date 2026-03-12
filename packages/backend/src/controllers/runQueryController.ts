@@ -27,6 +27,7 @@ import express from 'express';
 import { getContextFromHeader } from '../analytics/LightdashAnalytics';
 import {
     allowApiKeyAuthentication,
+    allowOauthAuthentication,
     deprecatedResultsRoute,
     isAuthenticated,
 } from './authentication';
@@ -56,6 +57,7 @@ export class RunViewChartQueryController extends BaseController {
      */
     @Deprecated()
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         deprecatedResultsRoute,
@@ -125,6 +127,7 @@ export class RunViewChartQueryController extends BaseController {
      */
     @Deprecated()
     @Middlewares([
+        allowOauthAuthentication,
         allowApiKeyAuthentication,
         isAuthenticated,
         deprecatedResultsRoute,
