@@ -233,6 +233,12 @@ export const spaceContentConfiguration: ContentConfiguration<SpaceContentRow> =
                                 `${SpaceTableName}.parent_space_uuid`,
                                 filters.spaceUuids ?? [],
                             );
+                            if (filters.space?.accessibleChildSpaceUuids) {
+                                void builder.whereIn(
+                                    `${SpaceTableName}.space_uuid`,
+                                    filters.space.accessibleChildSpaceUuids,
+                                );
+                            }
                         }
                     }
                 }),
